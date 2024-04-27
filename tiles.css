@@ -1,0 +1,25 @@
+body, html {
+    margin: 0;
+    width: 100%;
+}
+
+#board {
+    width: fit-content;
+    height: fit-content;
+    margin: auto;
+    margin-top: 20vh;
+}
+
+.row {
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+}
+ 
+.square {
+    width: 60px;
+    height: 60px;
+    position: relative;
+    border: 1px solid black;
+}
