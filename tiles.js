@@ -87,11 +87,6 @@ function create_pattern() {
 
 function init_board() {
     let board = document.getElementById("board");
-    let board_record = [];
-    // initialize
-    for (let i = 0; i < board_rows * board_columns; i++) {
-        board_record.push(0);
-    }
 
     for (let row = 0; row < board_rows; row++) {
         let row_elem = document.createElement('div');
@@ -105,17 +100,27 @@ function init_board() {
         board.appendChild(row_elem);
     }
 
+    let board_record = [];
+    // initialize
+    for (let i = 0; i < board_rows * board_columns; i++) {
+        board_record.push(0);
+    }
+
+
     for (let i = 0; i < total_amnt_patterns; i++) {
         let pattern = create_pattern();
-        
+        let squares = []
         for (let j = 0; j < 4; j++) {
-            let random_index = Math.floor(Math.random() * board_record.length);
-            document.getElementById(random_index + "").appendChild(pattern);
-            board_record[random_index]++;
-            pattern.style.zIndex = board_record[random_index];
-            if (board_record[random_index] == 3) {
-                board_record.splice(random_index, 1);
+            let random_index = null;
+            // a pattern must be placed in 4 distinct squares, and each square
+            // must have a maximum of 3 patterns
+            while ((squares.includes(random_index) && board_record[random_index] == 3) 
+                    || random_index == null) {
+                random_index = Math.floor(Math.random() * board_record.length);
             }
+            squares.push(random_index);
+            board_record[random_index]++;
+            document.getElementById(random_index + "").appendChild(pattern);
         }
     }
 
